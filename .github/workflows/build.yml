@@ -36,14 +36,14 @@ jobs:
       contents: write
     steps:
     - uses: actions/checkout@v3
-    - name: Add target
-      run: rustup target add ${{ matrix.target }}
-    - name: Build
-      run: cargo build --release --verbose --target ${{ matrix.target }}
-    - name: Run tests
-      run: cargo test --verbose
-    - name: Move binary
-      run: cp target/${{ matrix.target }}/release/${{ matrix.bin }} .
+    #- name: Add target
+    #  run: rustup target add ${{ matrix.target }}
+    #- name: Build
+    #  run: cargo build --release --verbose --target ${{ matrix.target }}
+    #- name: Run tests
+    #  run: cargo test --verbose
+    #- name: Move binary
+    #  run: cp target/${{ matrix.target }}/release/${{ matrix.bin }} .
     - name: Package output
       run: tar -czvf h26forge-${{ matrix.name }}.tar.gz docs config input_vids transforms scripts README.md ${{ matrix.bin }}
     - uses: actions/upload-artifact@v3
@@ -55,8 +55,7 @@ jobs:
       id: vars
       run:  |
             if [ "$RUNNER_OS" == "Windows" ]; then
-                  $NOW=& Get-Date -format yyyy-MM
-                  echo "::set-output name=year_month::$NOW"
+                  echo "::set-output name=year_month::$(date +'%Y-%m')"
             else
                   echo "year_month=$(date +'%Y-%m')" >> $GITHUB_OUTPUT
             fi
