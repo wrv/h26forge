@@ -45,7 +45,7 @@ jobs:
     #- name: Move binary
     #  run: cp target/${{ matrix.target }}/release/${{ matrix.bin }} .
     - name: Package output
-      run: tar -czvf h26forge-${{ matrix.name }}.tar.gz docs config input_vids transforms scripts README.md ${{ matrix.bin }}
+      run: tar -czvf h26forge-${{ matrix.name }}.tar.gz docs
     - uses: actions/upload-artifact@v3
       with:
         name: h26forge-${{ matrix.name }}
