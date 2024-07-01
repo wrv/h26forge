@@ -19,18 +19,18 @@ jobs:
             bin: h26forge.exe
             os: windows-latest
             name: windows-x86_64
-          - target: x86_64-unknown-linux-gnu
-            bin: h26forge
-            os: ubuntu-latest
-            name: linux-x86_64
-          - target: aarch64-apple-darwin
-            bin: h26forge
-            os: macos-13
-            name: mac-aarch64
-          - target: x86_64-apple-darwin
-            bin: h26forge
-            os: macos-13
-            name: mac-x86_64
+          #- target: x86_64-unknown-linux-gnu
+          #  bin: h26forge
+          #  os: ubuntu-latest
+          #  name: linux-x86_64
+          #- target: aarch64-apple-darwin
+          #  bin: h26forge
+          #  os: macos-13
+          #  name: mac-aarch64
+          #- target: x86_64-apple-darwin
+          #  bin: h26forge
+          #  os: macos-13
+          #  name: mac-x86_64
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
@@ -55,7 +55,8 @@ jobs:
       id: vars
       run:  |
             if [ "$RUNNER_OS" == "Windows" ]; then
-                  echo "::set-output name=year_month::$(echo %date:~-4%-%date:~4,2%)"
+                  $NOW=& Get-Date -format yyyy-MM
+                  echo "::set-output name=year_month::$NOW"
             else
                   echo "year_month=$(date +'%Y-%m')" >> $GITHUB_OUTPUT
             fi
