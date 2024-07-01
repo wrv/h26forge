@@ -19,33 +19,33 @@ jobs:
             bin: h26forge.exe
             os: windows-latest
             name: windows-x86_64
-          #- target: x86_64-unknown-linux-gnu
-          #  bin: h26forge
-          #  os: ubuntu-latest
-          #  name: linux-x86_64
-          #- target: aarch64-apple-darwin
-          #  bin: h26forge
-          #  os: macos-13
-          #  name: mac-aarch64
-          #- target: x86_64-apple-darwin
-          #  bin: h26forge
-          #  os: macos-13
-          #  name: mac-x86_64
+          - target: x86_64-unknown-linux-gnu
+            bin: h26forge
+            os: ubuntu-latest
+            name: linux-x86_64
+          - target: aarch64-apple-darwin
+            bin: h26forge
+            os: macos-13
+            name: mac-aarch64
+          - target: x86_64-apple-darwin
+            bin: h26forge
+            os: macos-13
+            name: mac-x86_64
     runs-on: ${{ matrix.os }}
     permissions:
       contents: write
     steps:
     - uses: actions/checkout@v3
-    #- name: Add target
-    #  run: rustup target add ${{ matrix.target }}
-    #- name: Build
-    #  run: cargo build --release --verbose --target ${{ matrix.target }}
-    #- name: Run tests
-    #  run: cargo test --verbose
-    #- name: Move binary
-    #  run: cp target/${{ matrix.target }}/release/${{ matrix.bin }} .
+    - name: Add target
+      run: rustup target add ${{ matrix.target }}
+    - name: Build
+      run: cargo build --release --verbose --target ${{ matrix.target }}
+    - name: Run tests
+      run: cargo test --verbose
+    - name: Move binary
+      run: cp target/${{ matrix.target }}/release/${{ matrix.bin }} .
     - name: Package output
-      run: tar -czvf h26forge-${{ matrix.name }}.tar.gz docs
+      run: tar -czvf h26forge-${{ matrix.name }}.tar.gz docs config input_vids transforms scripts README.md ${{ matrix.bin }}
     - uses: actions/upload-artifact@v3
       with:
         name: h26forge-${{ matrix.name }}
